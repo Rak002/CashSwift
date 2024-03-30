@@ -1,3 +1,6 @@
+import 'package:cashswift/models/data_model.dart';
+import 'package:cashswift/modules/ui_components.dart';
+import 'package:cashswift/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +10,7 @@ import 'package:cashswift/screens/login_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class IntroScreen extends StatelessWidget {
   IntroScreen({super.key});
@@ -300,28 +304,35 @@ class IntroScreen extends StatelessWidget {
                   right: 40,
                 ),
                 child: OutlinedButton(
-                  onPressed: () {
-                    if (FirebaseAuth.instance.currentUser != null) {
+                  onPressed: () async{
+                    final currentUser = FirebaseAuth.instance.currentUser;
+                    if (currentUser != null) {
+                      Object res =
+                          await Provider.of<DataModel>(context, listen: false)
+                              .getUserData(currentUser.uid);
+                      if (res != 0) {
+                        showSnackBar(context, "Some Error Occurred!", "error");
+                        return;
+                      }
                       Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                        return LoginScreen(); // go to home screen
-                    }));
-                    }
-                    else {
-                      Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
+                          MaterialPageRoute(builder: (context) {
+                        return HomeScreen(); // go to home screen
+                      }));
+                    } else {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
                         return LoginScreen(); // go to login screen
-                    }));
+                      }));
                     }
 
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) {
-                      if (FirebaseAuth.instance.currentUser != null) {
-                        return LoginScreen(); // go to home screen
-                      } else {
-                        return LoginScreen(); // go to login screen
-                      }
-                    }));
+                    // Navigator.pushReplacement(context,
+                    //     MaterialPageRoute(builder: (context) {
+                    //   if (FirebaseAuth.instance.currentUser != null) {
+                    //     return LoginScreen(); // go to home screen
+                    //   } else {
+                    //     return LoginScreen(); // go to login screen
+                    //   }
+                    // }));
                   },
                   style: OutlinedButton.styleFrom(
                     fixedSize: Size(70, 50),
@@ -347,21 +358,23 @@ class IntroScreen extends StatelessWidget {
 
           default:
             return Scaffold(
-              body:
-                  Container(
-                    width: double.maxFinite,
-                height: double.maxFinite,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      Color.fromARGB(255, 66, 33, 157),
-                      Color.fromARGB(255, 249, 162, 68)
-                    ],
+              body: Container(
+                  width: double.maxFinite,
+                  height: double.maxFinite,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color.fromARGB(255, 66, 33, 157),
+                        Color.fromARGB(255, 249, 162, 68)
+                      ],
+                    ),
                   ),
-                ),
-                    child: Center(child: CircularProgressIndicator(color: Colors.white,))),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ))),
             );
         }
       },

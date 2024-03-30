@@ -1,8 +1,11 @@
-import 'package:cashswift/modules/util_functions.dart';
+import 'package:cashswift/modules/ui_components.dart';
+import 'package:cashswift/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cashswift/screens/register_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cashswift/models/data_model.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -71,15 +74,15 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // You can define the action here
-            Navigator.of(context).pop();
-          },
-          color: Colors.white, // Change the color of the back button
-        ),
+        automaticallyImplyLeading: true,
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     // You can define the action here
+        //     Navigator.of(context).pop();
+        //   },
+        //   color: Colors.white, // Change the color of the back button
+        // ),
         backgroundColor: Color.fromARGB(255, 46, 15, 99),
         title: Text(
           " Login",
@@ -87,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
             textStyle: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
-              color:Colors.white,
+              color: Colors.white,
             ),
           ),
         ),
@@ -95,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
       extendBody: true,
       body: Container(
         width: double.maxFinite,
-                height: double.maxFinite,
+        height: double.maxFinite,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -120,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Icon(
                       Icons.check_circle,
                       size: 25.0,
-                      color:  Color.fromARGB(255, 118, 212, 121),
+                      color: Color.fromARGB(255, 118, 212, 121),
                     ),
                     Text(
                       " Login Successful",
@@ -147,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Icon(
                       Icons.error,
                       size: 25.0,
-                      color:  Color.fromARGB(255, 255, 103, 92),
+                      color: Color.fromARGB(255, 255, 103, 92),
                     ),
                     Text(
                       " $general_error",
@@ -174,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Icon(
                   Icons.email,
                   size: 25.0,
-                  color:Color.fromARGB(255, 241, 212, 180),
+                  color: Color.fromARGB(255, 241, 212, 180),
                 ),
                 Text(
                   ' Email',
@@ -182,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     textStyle: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      color:Color.fromARGB(255, 241, 212, 180),
+                      color: Color.fromARGB(255, 241, 212, 180),
                     ),
                   ),
                 ),
@@ -204,22 +207,25 @@ class _LoginScreenState extends State<LoginScreen> {
               cursorColor: Color.fromARGB(255, 241, 212, 180),
               style: GoogleFonts.notoSans(
                 textStyle: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color:Color.fromARGB(255, 241, 212, 180)
-                ),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 241, 212, 180)),
               ),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color:(email_error == "")? Color.fromARGB(255, 241, 212, 180):Color.fromARGB(255, 255, 91, 79),
+                    color: (email_error == "")
+                        ? Color.fromARGB(255, 241, 212, 180)
+                        : Color.fromARGB(255, 255, 91, 79),
                     width: 2.0,
                   ),
                 ),
-                enabledBorder:OutlineInputBorder(
-                  borderSide:BorderSide(
-                    color:(email_error == "")? Color.fromARGB(255, 241, 212, 180):Color.fromARGB(255, 255, 91, 79),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: (email_error == "")
+                        ? Color.fromARGB(255, 241, 212, 180)
+                        : Color.fromARGB(255, 255, 91, 79),
                     width: 1.0,
                   ),
                 ),
@@ -233,8 +239,8 @@ class _LoginScreenState extends State<LoginScreen> {
           (email_error == "")
               ? Container()
               : SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
                     padding: const EdgeInsets.only(
                       left: 20,
                       right: 20,
@@ -259,7 +265,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ]),
                   ),
-              ),
+                ),
           Align(
             alignment: Alignment.centerLeft,
             child: Padding(
@@ -281,7 +287,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     textStyle: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      color:Color.fromARGB(255, 241, 212, 180),
+                      color: Color.fromARGB(255, 241, 212, 180),
                     ),
                   ),
                 ),
@@ -305,20 +311,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 textStyle: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color:Color.fromARGB(255, 241, 212, 180),
+                  color: Color.fromARGB(255, 241, 212, 180),
                 ),
               ),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color:(password_error == "")? Color.fromARGB(255, 241, 212, 180):Color.fromARGB(255, 255, 91, 79),
+                    color: (password_error == "")
+                        ? Color.fromARGB(255, 241, 212, 180)
+                        : Color.fromARGB(255, 255, 91, 79),
                     width: 2.0,
                   ),
                 ),
-                enabledBorder:OutlineInputBorder(
-                  borderSide:BorderSide(
-                    color:(password_error == "")? Color.fromARGB(255, 241, 212, 180):Color.fromARGB(255, 255, 91, 79),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: (password_error == "")
+                        ? Color.fromARGB(255, 241, 212, 180)
+                        : Color.fromARGB(255, 255, 91, 79),
                     width: 1.0,
                   ),
                 ),
@@ -332,8 +342,8 @@ class _LoginScreenState extends State<LoginScreen> {
           (password_error == "")
               ? Container()
               : SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
                     padding: const EdgeInsets.only(
                       left: 20,
                       right: 20,
@@ -358,7 +368,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ]),
                   ),
-              ),
+                ),
           Padding(
             padding: const EdgeInsets.only(
               left: 10,
@@ -366,11 +376,13 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             child: Row(children: [
               Checkbox(
-                side: const BorderSide(color: Color.fromARGB(129, 241, 212, 180),width: 2.0,),
-                checkColor:Color.fromARGB(255, 72, 36, 64),
+                side: const BorderSide(
+                  color: Color.fromARGB(129, 241, 212, 180),
+                  width: 2.0,
+                ),
+                checkColor: Color.fromARGB(255, 72, 36, 64),
                 value: show_password,
-                activeColor:Color.fromARGB(255, 241, 212, 180),
-                
+                activeColor: Color.fromARGB(255, 241, 212, 180),
                 onChanged: (bool) {
                   if (show_password) {
                     changeShowPassword(false);
@@ -385,7 +397,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   textStyle: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color:Color.fromARGB(255, 241, 212, 180),
+                    color: Color.fromARGB(255, 241, 212, 180),
                   ),
                 ),
               ),
@@ -411,7 +423,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(context,
+                  Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
                     return RegisterScreen();
                   }));
@@ -448,8 +460,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           email: email, password: password);
                   print("UserCredential : $userCredential");
                   final user = FirebaseAuth.instance.currentUser;
+
                   if (user != null) {
                     if (user.emailVerified) {
+                      Object res =
+                          await Provider.of<DataModel>(context, listen: false)
+                              .getUserData(user.uid);
+                      if (res != 0) {
+                        changeUserCrtSuccess(false);
+                        changeEmailError("");
+                        changePasswordError("");
+                        changeGeneralError("Some Error Occurred!");
+                        showSnackBar(context, "Some Error Occurred!", "error");
+                        return;
+                      }
                       changeUserCrtSuccess(true);
                       changeEmailError("");
                       changePasswordError("");
@@ -458,7 +482,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       showSnackBar(context, "Login Successful", "success");
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
-                        return Placeholder(); // to home screen
+                        return HomeScreen(); // to home screen
                       }));
                     } else {
                       await (FirebaseAuth.instance.currentUser)
@@ -479,13 +503,19 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Invalid Email! Make sure it's a valid email");
                       changePasswordError("");
                       changeGeneralError("");
-                      showSnackBar(context, "Invalid Email! Make sure it's a valid email", "error");
+                      showSnackBar(
+                          context,
+                          "Invalid Email! Make sure it's a valid email",
+                          "error");
                     } else if (e.code == "user-disabled") {
                       changeEmailError(
                           "This User is Disabled! Write to us to enable");
                       changePasswordError("");
                       changeGeneralError("");
-                      showSnackBar(context, "This User is Disabled! Write to us to enable", "error");
+                      showSnackBar(
+                          context,
+                          "This User is Disabled! Write to us to enable",
+                          "error");
                     } else if (e.code == "user-not-found") {
                       changeEmailError("User not found!");
                       changePasswordError("");
@@ -523,9 +553,11 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               style: OutlinedButton.styleFrom(
                 fixedSize: Size(70, 50),
-                backgroundColor:Color.fromARGB(94, 156, 129, 231),
+                backgroundColor: Color.fromARGB(94, 156, 129, 231),
                 side: const BorderSide(
-                    width: 3.0, color: Color.fromARGB(255, 239, 234, 255),),
+                  width: 3.0,
+                  color: Color.fromARGB(255, 239, 234, 255),
+                ),
               ),
               child: Text(
                 'Login',
@@ -533,7 +565,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   textStyle: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color:Color.fromARGB(255, 237, 231, 255),
+                    color: Color.fromARGB(255, 237, 231, 255),
                   ),
                 ),
               ),
@@ -544,4 +576,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-

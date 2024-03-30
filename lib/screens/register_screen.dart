@@ -1,8 +1,10 @@
+import 'package:cashswift/modules/ui_components.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:cashswift/modules/util_functions.dart';
+import 'package:cashswift/models/data_model.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -14,10 +16,13 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   late final TextEditingController email_;
   late final TextEditingController password_;
+  late final TextEditingController phone_;
+  final ScrollController _controller = ScrollController();
   @override
   void initState() {
     email_ = TextEditingController();
     password_ = TextEditingController();
+    phone_ = TextEditingController();
     super.initState();
   }
 
@@ -25,6 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void dispose() {
     email_.dispose();
     password_.dispose();
+    phone_.dispose();
     super.dispose();
   }
 
@@ -71,14 +77,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // You can define the action here
-            Navigator.of(context).pop();
-          },
-          color: Colors.white, // Change the color of the back button
-        ),
+        automaticallyImplyLeading: false,
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     // You can define the action here
+        //     Navigator.of(context).pop();
+        //   },
+        //   color: Colors.white, // Change the color of the back button
+        // ),
         backgroundColor: Color.fromARGB(255, 46, 15, 99),
         title: Text(
           " Register",
@@ -86,14 +93,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             textStyle: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
-              color:Colors.white,
+              color: Colors.white,
             ),
           ),
         ),
       ),
       body: Container(
         width: double.maxFinite,
-                height: double.maxFinite,
+        height: double.maxFinite,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -104,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ],
           ),
         ),
-        child: ListView(children: [
+        child: ListView(controller: _controller, children: [
           (!show_usercrt_success)
               ? Container()
               : Padding(
@@ -147,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(
                               width: 3,
-                              color:  Color.fromARGB(255, 118, 212, 121),
+                              color: Color.fromARGB(255, 118, 212, 121),
                             ),
                             color: Color.fromARGB(40, 118, 212, 121),
                           ),
@@ -157,7 +164,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               textStyle: const TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
-                                color:  Color.fromARGB(255, 118, 212, 121),
+                                color: Color.fromARGB(255, 118, 212, 121),
                               ),
                             ),
                           ),
@@ -239,22 +246,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
               cursorColor: Color.fromARGB(255, 241, 212, 180),
               style: GoogleFonts.notoSans(
                 textStyle: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 241, 212, 180)
-                ),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 241, 212, 180)),
               ),
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: (email_error == "")? Color.fromARGB(255, 241, 212, 180):Color.fromARGB(255, 255, 91, 79),
+                    color: (email_error == "")
+                        ? Color.fromARGB(255, 241, 212, 180)
+                        : Color.fromARGB(255, 255, 91, 79),
                     width: 2.0,
                   ),
                 ),
-                enabledBorder:OutlineInputBorder(
-                  borderSide:BorderSide(
-                    color:(email_error == "")? Color.fromARGB(255, 241, 212, 180):Color.fromARGB(255, 255, 91, 79),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: (email_error == "")
+                        ? Color.fromARGB(255, 241, 212, 180)
+                        : Color.fromARGB(255, 255, 91, 79),
                     width: 1.0,
                   ),
                 ),
@@ -268,8 +278,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           (email_error == "")
               ? Container()
               : SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
                     padding: const EdgeInsets.only(
                       left: 20,
                       right: 20,
@@ -294,7 +304,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ]),
                   ),
-              ),
+                ),
           Align(
             alignment: Alignment.centerLeft,
             child: Padding(
@@ -328,7 +338,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               left: 15,
               right: 15,
               top: 10,
-              bottom: 10,
+              bottom: 0,
             ),
             child: TextField(
               controller: password_,
@@ -347,13 +357,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 border: OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color:(password_error == "")? Color.fromARGB(255, 241, 212, 180):Color.fromARGB(255, 255, 91, 79),
+                    color: (password_error == "")
+                        ? Color.fromARGB(255, 241, 212, 180)
+                        : Color.fromARGB(255, 255, 91, 79),
                     width: 2.0,
                   ),
                 ),
-                enabledBorder:OutlineInputBorder(
-                  borderSide:BorderSide(
-                    color:(password_error == "")? Color.fromARGB(255, 241, 212, 180):Color.fromARGB(255, 255, 91, 79),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: (password_error == "")
+                        ? Color.fromARGB(255, 241, 212, 180)
+                        : Color.fromARGB(255, 255, 91, 79),
                     width: 1.0,
                   ),
                 ),
@@ -367,8 +381,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           (password_error == "")
               ? Container()
               : SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
                     padding: const EdgeInsets.only(
                       left: 20,
                       right: 20,
@@ -379,7 +393,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const Icon(
                         Icons.error,
                         size: 20.0,
-                        color: Color.fromARGB(255, 255, 91, 79),),
+                        color: Color.fromARGB(255, 255, 91, 79),
+                      ),
                       Text(
                         " $password_error",
                         style: GoogleFonts.notoSans(
@@ -392,7 +407,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ]),
                   ),
-              ),
+                ),
           Padding(
             padding: const EdgeInsets.only(
               left: 10,
@@ -400,11 +415,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             child: Row(children: [
               Checkbox(
-                side: const BorderSide(color: Color.fromARGB(129, 241, 212, 180),width: 2.0,),
-                checkColor:Color.fromARGB(255, 72, 36, 64),
+                side: const BorderSide(
+                  color: Color.fromARGB(129, 241, 212, 180),
+                  width: 2.0,
+                ),
+                checkColor: Color.fromARGB(255, 72, 36, 64),
                 value: show_password,
-                activeColor:Color.fromARGB(255, 241, 212, 180),
-
+                activeColor: Color.fromARGB(255, 241, 212, 180),
                 onChanged: (bool) {
                   if (show_password) {
                     changeShowPassword(false);
@@ -419,11 +436,89 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textStyle: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color:Color.fromARGB(255, 241, 212, 180),
+                    color: Color.fromARGB(255, 241, 212, 180),
                   ),
                 ),
               ),
             ]),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 25,
+                right: 20,
+                top: 20,
+                bottom: 10,
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.phone,
+                    size: 25.0,
+                    color: Color.fromARGB(255, 241, 212, 180),
+                  ),
+                  Text(
+                    ' Phone',
+                    style: GoogleFonts.notoSans(
+                      textStyle: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 241, 212, 180),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 15,
+              right: 15,
+              top: 10,
+              bottom: 10,
+            ),
+            child: TextField(
+              controller: phone_,
+              enableSuggestions: false,
+              autocorrect: false,
+              keyboardType: TextInputType.phone,
+              cursorColor: const Color.fromARGB(255, 241, 212, 180),
+              style: GoogleFonts.notoSans(
+                textStyle: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 241, 212, 180),
+                ),
+              ),
+              inputFormatters: [
+                // Add a regular expression pattern for phone numbers
+                FilteringTextInputFormatter.allow(
+                  RegExp(r'^[0-9]+$'), // Allow only digits
+                ),
+                LengthLimitingTextInputFormatter(10), // Limit to 10 characters
+              ],
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromARGB(255, 241, 212, 180),
+                    width: 2.0,
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color.fromARGB(255, 241, 212, 180),
+                    width: 1.0,
+                  ),
+                ),
+                hintText: 'Enter Phone Number',
+                hintStyle: TextStyle(
+                  color: Color.fromARGB(160, 241, 212, 180),
+                ),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(
@@ -445,8 +540,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
                     return LoginScreen();
                   }));
                 },
@@ -474,6 +568,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
               onPressed: () async {
                 final email = email_.text;
                 final password = password_.text;
+                final phone = phone_.text;
+
+                // Check if email and password are not empty
+                if (email.isEmpty || password.isEmpty || phone.isEmpty) {
+                  setState(() {
+                    general_error = "All Fields are required.";
+                    show_usercrt_success = false;
+                    showSnackBar(context, "All Fields are required.", "error");
+                  });
+                  return;
+                }
+
+                // Perform phone number validation
+                if (phone.length != 10) {
+                  setState(() {
+                    general_error = "Invalid phone number. Must be 10 digits.";
+                    show_usercrt_success = false;
+                    showSnackBar(context,
+                        "Invalid phone number. Must be 10 digits.", "error");
+                  });
+                  return;
+                }
                 print("Email entered by user : ${email}");
                 print("Password entered by user : ${password}");
                 try {
@@ -483,31 +599,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   print("UserCredential : $userCredential");
                   await (FirebaseAuth.instance.currentUser)
                       ?.sendEmailVerification();
+
+                  Object res = await DataModel().storeUserData(userCredential.user!.uid,
+                      email,  200.00, int.parse(phone));
+                  if (res as int != 0) {
+                    print("Error storing user data");
+                    changeUserCrtSuccess(false);
+                    changeEmailError("");
+                    changePasswordError("");
+                    changeGeneralError("Something went wrong!");
+                    showSnackBar(context, "Something went wrong!", "error");
+                    return;
+                  } 
+
+
                   changeUserCrtSuccess(true);
                   changeEmailError("");
                   changePasswordError("");
                   changeGeneralError("");
                   showSnackBar(context, "User Registered ", "success");
+                  _controller.animateTo(
+                    0,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
                 } catch (e) {
                   changeUserCrtSuccess(false);
                   if (e is FirebaseAuthException) {
                     if (e.code == "email-already-in-use") {
-                      changeEmailError("Email Already in Use! try another email");
+                      changeEmailError(
+                          "Email Already in Use! try another email");
                       changePasswordError("");
                       changeGeneralError("");
-                      showSnackBar(context, "Email Already in Use! try another email", "error");
+                      showSnackBar(context,
+                          "Email Already in Use! try another email", "error");
                     } else if (e.code == "invalid-email") {
                       changeEmailError(
                           "Invalid Email! Make sure it's a valid email");
                       changePasswordError("");
                       changeGeneralError("");
-                      showSnackBar(context, "Invalid Email! Make sure it's a valid email", "error");
+                      showSnackBar(
+                          context,
+                          "Invalid Email! Make sure it's a valid email",
+                          "error");
                     } else if (e.code == "user-disabled") {
                       changeEmailError(
                           "This User is Disabled! write to us to enable");
                       changePasswordError("");
                       changeGeneralError("");
-                      showSnackBar(context, "This User is Disabled! write to us to enable", "error");
+                      showSnackBar(
+                          context,
+                          "This User is Disabled! write to us to enable",
+                          "error");
                     } else if (e.code == "weak-password") {
                       changeEmailError("");
                       changePasswordError("Weak Password!");
@@ -539,9 +682,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
               },
               style: OutlinedButton.styleFrom(
                 fixedSize: Size(70, 50),
-                 backgroundColor:Color.fromARGB(94, 156, 129, 231),
+                backgroundColor: Color.fromARGB(94, 156, 129, 231),
                 side: const BorderSide(
-                    width: 3.0, color: Color.fromARGB(255, 239, 234, 255),),
+                  width: 3.0,
+                  color: Color.fromARGB(255, 239, 234, 255),
+                ),
               ),
               child: Text(
                 'Register',
@@ -549,7 +694,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   textStyle: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color:Color.fromARGB(255, 237, 231, 255),
+                    color: Color.fromARGB(255, 237, 231, 255),
                   ),
                 ),
               ),
