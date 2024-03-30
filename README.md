@@ -26,7 +26,7 @@ An application that facilitates peer-to-peer money transfers.
 <br>
 <br>
 <img src="https://github.com/Rak002/CashSwift/assets/102357129/d54aec45-c4dc-4f00-9f85-39cdb679a419" width="300" >
-<img src="https://github.com/Rak002/CashSwift/assets/102357129/cc5f0d5e-5050-4048-a9cb-4b216d378640" width="300" >
+<img src="https://github.com/Rak002/CashSwift/assets/102357129/12a4e2dc-d855-4824-b4fc-af513e5fb1d5" width="300" >
 <br>
 
 
