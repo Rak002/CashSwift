@@ -78,15 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        // leading: IconButton(
-        //   icon: Icon(Icons.arrow_back),
-        //   onPressed: () {
-        //     // You can define the action here
-        //     Navigator.of(context).pop();
-        //   },
-        //   color: Colors.white, // Change the color of the back button
-        // ),
-        backgroundColor: Color.fromARGB(255, 46, 15, 99),
+        backgroundColor: const Color.fromARGB(255, 46, 15, 99),
         title: Text(
           " Register",
           style: GoogleFonts.notoSans(
@@ -154,9 +146,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(
                               width: 3,
-                              color: Color.fromARGB(255, 118, 212, 121),
+                              color: const Color.fromARGB(255, 118, 212, 121),
                             ),
-                            color: Color.fromARGB(40, 118, 212, 121),
+                            color: const Color.fromARGB(40, 118, 212, 121),
                           ),
                           child: Text(
                             " Verification Email Send, Please Verify Email ",
@@ -170,9 +162,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                         ),
                       )
-                      //       Text(
-                      //           "Verification Email Send, Please Verify Email")),
-                      // )
                     ],
                   ),
                 ),
@@ -243,7 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               enableSuggestions: false,
               autocorrect: false,
               keyboardType: TextInputType.emailAddress,
-              cursorColor: Color.fromARGB(255, 241, 212, 180),
+              cursorColor: const Color.fromARGB(255, 241, 212, 180),
               style: GoogleFonts.notoSans(
                 textStyle: const TextStyle(
                     fontSize: 20,
@@ -255,16 +244,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: (email_error == "")
-                        ? Color.fromARGB(255, 241, 212, 180)
-                        : Color.fromARGB(255, 255, 91, 79),
+                        ? const Color.fromARGB(255, 241, 212, 180)
+                        : const Color.fromARGB(255, 255, 91, 79),
                     width: 2.0,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: (email_error == "")
-                        ? Color.fromARGB(255, 241, 212, 180)
-                        : Color.fromARGB(255, 255, 91, 79),
+                        ? const Color.fromARGB(255, 241, 212, 180)
+                        : const Color.fromARGB(255, 255, 91, 79),
                     width: 1.0,
                   ),
                 ),
@@ -345,7 +334,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               obscureText: !show_password,
               enableSuggestions: false,
               autocorrect: false,
-              cursorColor: Color.fromARGB(255, 241, 212, 180),
+              cursorColor: const Color.fromARGB(255, 241, 212, 180),
               style: GoogleFonts.notoSans(
                 textStyle: const TextStyle(
                   fontSize: 20,
@@ -354,25 +343,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: (password_error == "")
-                        ? Color.fromARGB(255, 241, 212, 180)
-                        : Color.fromARGB(255, 255, 91, 79),
+                        ? const Color.fromARGB(255, 241, 212, 180)
+                        : const Color.fromARGB(255, 255, 91, 79),
                     width: 2.0,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: (password_error == "")
-                        ? Color.fromARGB(255, 241, 212, 180)
-                        : Color.fromARGB(255, 255, 91, 79),
+                        ? const Color.fromARGB(255, 241, 212, 180)
+                        : const Color.fromARGB(255, 255, 91, 79),
                     width: 1.0,
                   ),
                 ),
                 hintText: 'Enter Password',
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                   color: Color.fromARGB(160, 241, 212, 180),
                 ),
               ),
@@ -419,9 +408,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   color: Color.fromARGB(129, 241, 212, 180),
                   width: 2.0,
                 ),
-                checkColor: Color.fromARGB(255, 72, 36, 64),
+                checkColor: const Color.fromARGB(255, 72, 36, 64),
                 value: show_password,
-                activeColor: Color.fromARGB(255, 241, 212, 180),
+                activeColor: const Color.fromARGB(255, 241, 212, 180),
                 onChanged: (bool) {
                   if (show_password) {
                     changeShowPassword(false);
@@ -493,11 +482,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               inputFormatters: [
-                // Add a regular expression pattern for phone numbers
                 FilteringTextInputFormatter.allow(
-                  RegExp(r'^[0-9]+$'), // Allow only digits
+                  RegExp(r'^[0-9]+$'),
                 ),
-                LengthLimitingTextInputFormatter(10), // Limit to 10 characters
+                LengthLimitingTextInputFormatter(10),
               ],
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -540,8 +528,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                    return LoginScreen();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) {
+                    return const LoginScreen();
                   }));
                 },
                 child: Text(
@@ -570,7 +559,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 final password = password_.text;
                 final phone = phone_.text;
 
-                // Check if email and password are not empty
                 if (email.isEmpty || password.isEmpty || phone.isEmpty) {
                   setState(() {
                     general_error = "All Fields are required.";
@@ -580,7 +568,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return;
                 }
 
-                // Perform phone number validation
                 if (phone.length != 10) {
                   setState(() {
                     general_error = "Invalid phone number. Must be 10 digits.";
@@ -590,28 +577,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   });
                   return;
                 }
-                print("Email entered by user : ${email}");
-                print("Password entered by user : ${password}");
+
                 try {
                   final userCredential = await FirebaseAuth.instance
                       .createUserWithEmailAndPassword(
                           email: email, password: password);
-                  print("UserCredential : $userCredential");
                   await (FirebaseAuth.instance.currentUser)
                       ?.sendEmailVerification();
 
-                  Object res = await DataModel().storeUserData(userCredential.user!.uid,
-                      email,  200.00, int.parse(phone));
+                  Object res = await DataModel().storeUserData(
+                      userCredential.user!.uid,
+                      email,
+                      200.00,
+                      int.parse(phone));
                   if (res as int != 0) {
-                    print("Error storing user data");
                     changeUserCrtSuccess(false);
                     changeEmailError("");
                     changePasswordError("");
                     changeGeneralError("Something went wrong!");
                     showSnackBar(context, "Something went wrong!", "error");
                     return;
-                  } 
-
+                  }
 
                   changeUserCrtSuccess(true);
                   changeEmailError("");
@@ -620,7 +606,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   showSnackBar(context, "User Registered ", "success");
                   _controller.animateTo(
                     0,
-                    duration: Duration(milliseconds: 500),
+                    duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
                 } catch (e) {
@@ -681,8 +667,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 }
               },
               style: OutlinedButton.styleFrom(
-                fixedSize: Size(70, 50),
-                backgroundColor: Color.fromARGB(94, 156, 129, 231),
+                fixedSize: const Size(70, 50),
+                backgroundColor: const Color.fromARGB(94, 156, 129, 231),
                 side: const BorderSide(
                   width: 3.0,
                   color: Color.fromARGB(255, 239, 234, 255),

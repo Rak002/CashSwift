@@ -75,15 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        // leading: IconButton(
-        //   icon: Icon(Icons.arrow_back),
-        //   onPressed: () {
-        //     // You can define the action here
-        //     Navigator.of(context).pop();
-        //   },
-        //   color: Colors.white, // Change the color of the back button
-        // ),
-        backgroundColor: Color.fromARGB(255, 46, 15, 99),
+        backgroundColor: const Color.fromARGB(255, 46, 15, 99),
         title: Text(
           " Login",
           style: GoogleFonts.notoSans(
@@ -204,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
               enableSuggestions: false,
               autocorrect: false,
               keyboardType: TextInputType.emailAddress,
-              cursorColor: Color.fromARGB(255, 241, 212, 180),
+              cursorColor: const Color.fromARGB(255, 241, 212, 180),
               style: GoogleFonts.notoSans(
                 textStyle: const TextStyle(
                     fontSize: 20,
@@ -212,25 +204,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Color.fromARGB(255, 241, 212, 180)),
               ),
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: (email_error == "")
-                        ? Color.fromARGB(255, 241, 212, 180)
-                        : Color.fromARGB(255, 255, 91, 79),
+                        ? const Color.fromARGB(255, 241, 212, 180)
+                        : const Color.fromARGB(255, 255, 91, 79),
                     width: 2.0,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: (email_error == "")
-                        ? Color.fromARGB(255, 241, 212, 180)
-                        : Color.fromARGB(255, 255, 91, 79),
+                        ? const Color.fromARGB(255, 241, 212, 180)
+                        : const Color.fromARGB(255, 255, 91, 79),
                     width: 1.0,
                   ),
                 ),
                 hintText: 'Enter Email',
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                   color: Color.fromARGB(160, 241, 212, 180),
                 ),
               ),
@@ -306,7 +298,7 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: !show_password,
               enableSuggestions: false,
               autocorrect: false,
-              cursorColor: Color.fromARGB(255, 241, 212, 180),
+              cursorColor: const Color.fromARGB(255, 241, 212, 180),
               style: GoogleFonts.notoSans(
                 textStyle: const TextStyle(
                   fontSize: 20,
@@ -315,25 +307,25 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: (password_error == "")
-                        ? Color.fromARGB(255, 241, 212, 180)
-                        : Color.fromARGB(255, 255, 91, 79),
+                        ? const Color.fromARGB(255, 241, 212, 180)
+                        : const Color.fromARGB(255, 255, 91, 79),
                     width: 2.0,
                   ),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: (password_error == "")
-                        ? Color.fromARGB(255, 241, 212, 180)
-                        : Color.fromARGB(255, 255, 91, 79),
+                        ? const Color.fromARGB(255, 241, 212, 180)
+                        : const Color.fromARGB(255, 255, 91, 79),
                     width: 1.0,
                   ),
                 ),
                 hintText: 'Enter Password',
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                   color: Color.fromARGB(160, 241, 212, 180),
                 ),
               ),
@@ -380,9 +372,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: Color.fromARGB(129, 241, 212, 180),
                   width: 2.0,
                 ),
-                checkColor: Color.fromARGB(255, 72, 36, 64),
+                checkColor: const Color.fromARGB(255, 72, 36, 64),
                 value: show_password,
-                activeColor: Color.fromARGB(255, 241, 212, 180),
+                activeColor: const Color.fromARGB(255, 241, 212, 180),
                 onChanged: (bool) {
                   if (show_password) {
                     changeShowPassword(false);
@@ -425,7 +417,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) {
-                    return RegisterScreen();
+                    return const RegisterScreen();
                   }));
                 },
                 child: Text(
@@ -452,13 +444,10 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () async {
                 final email = email_.text;
                 final password = password_.text;
-                print("Email entered by user : ${email}");
-                print("Password entered by user : ${password}");
                 try {
-                  final userCredential = await FirebaseAuth.instance
+                  await FirebaseAuth.instance
                       .signInWithEmailAndPassword(
                           email: email, password: password);
-                  print("UserCredential : $userCredential");
                   final user = FirebaseAuth.instance.currentUser;
 
                   if (user != null) {
@@ -482,7 +471,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       showSnackBar(context, "Login Successful", "success");
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
-                        return HomeScreen(); // to home screen
+                        return const HomeScreen(); // to home screen
                       }));
                     } else {
                       await (FirebaseAuth.instance.currentUser)
@@ -546,14 +535,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       changePasswordError("");
                       changeGeneralError(e.code);
                       showSnackBar(context, e.code, "error");
-                      print(e);
                     }
                   }
                 }
               },
               style: OutlinedButton.styleFrom(
-                fixedSize: Size(70, 50),
-                backgroundColor: Color.fromARGB(94, 156, 129, 231),
+                fixedSize: const Size(70, 50),
+                backgroundColor: const Color.fromARGB(94, 156, 129, 231),
                 side: const BorderSide(
                   width: 3.0,
                   color: Color.fromARGB(255, 239, 234, 255),

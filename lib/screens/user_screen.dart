@@ -2,9 +2,7 @@ import 'package:cashswift/models/data_model.dart';
 import 'package:cashswift/modules/ui_components.dart';
 import 'package:cashswift/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -14,14 +12,15 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 26, 26, 28),
+      backgroundColor: const Color.fromARGB(255, 26, 26, 28),
       appBar: Header(context),
       body: ListView(
         children: [
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
-              child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              child:
+                  Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                 const Padding(
                   padding: EdgeInsets.only(
                     left: 10,
@@ -46,7 +45,8 @@ class UserScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          Provider.of<DataModel>(context, listen: false).username,
+                          Provider.of<DataModel>(context, listen: false)
+                              .username,
                           style: GoogleFonts.notoSans(
                             textStyle: const TextStyle(
                               fontSize: 25,
@@ -56,7 +56,9 @@ class UserScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          Provider.of<DataModel>(context, listen: false).phoneNumber.toString(),
+                          Provider.of<DataModel>(context, listen: false)
+                              .phoneNumber
+                              .toString(),
                           style: GoogleFonts.notoSans(
                             textStyle: const TextStyle(
                               fontSize: 16,
@@ -85,10 +87,9 @@ class UserScreen extends StatelessWidget {
               child: TextButton(
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
-                  // ignore: use_build_context_synchronously
                   Navigator.pushAndRemoveUntil(context,
                       MaterialPageRoute(builder: (context) {
-                    return LoginScreen();
+                    return const LoginScreen();
                   }), (_) => false);
                 },
                 child: Text(
@@ -104,10 +105,9 @@ class UserScreen extends StatelessWidget {
               ),
             ),
           ),
-          
         ],
       ),
-      bottomNavigationBar: Footer(),
+      bottomNavigationBar: const Footer(),
     );
   }
 }

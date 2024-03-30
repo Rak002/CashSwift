@@ -4,17 +4,11 @@ import 'dart:ui';
 import 'package:cashswift/models/data_model.dart';
 import 'package:cashswift/modules/ui_components.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'dart:async';
 import 'dart:ui' as ui;
-
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ReceiveScreen extends StatefulWidget {
@@ -37,7 +31,7 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Header(context),
-      backgroundColor: Color.fromARGB(255, 26, 26, 28),
+      backgroundColor: const Color.fromARGB(255, 26, 26, 28),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -46,7 +40,7 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 40),
+                padding: const EdgeInsets.only(top: 40),
                 child: Container(
                   width: 300,
                   height: 300,
@@ -66,7 +60,6 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
                         dataModuleShape: QrDataModuleShape.square,
                         color: Color.fromARGB(255, 0, 0, 0),
                       ),
-                      // size: 320.0,
                       embeddedImageStyle: const QrEmbeddedImageStyle(
                         size: Size.square(60),
                       ),
@@ -74,15 +67,15 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10),
+              const Padding(
+                padding: EdgeInsets.all(10),
                 child: Text(
                   "Scan to Receive",
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top :15, bottom: 15),
+                padding: const EdgeInsets.only(top: 15, bottom: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -91,7 +84,7 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
                       height: 2,
                       color: Colors.white,
                     ),
-                    Text(
+                    const Text(
                       "   or   ",
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
@@ -107,9 +100,8 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
                 padding: const EdgeInsets.all(20),
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                        20.0), // Adjust the value as needed
-                    color: Color.fromARGB(26, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: const Color.fromARGB(26, 255, 255, 255),
                   ),
                   width: 600,
                   height: 140,
@@ -118,14 +110,14 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
+                          const Padding(
+                            padding: EdgeInsets.only(
                                 top: 13.0,
                                 bottom: 10.0,
                                 left: 20.0,
                                 right: 20.0),
                             child: Text(
-                              "Enter CashSwift ID",
+                              "Use CashSwift ID",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -140,7 +132,7 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
                                       .cashSwiftID,
                                 ));
                               },
-                              icon: Icon(Icons.copy, color: Colors.white))
+                              icon: const Icon(Icons.copy, color: Colors.white))
                         ],
                       ),
                       Padding(
@@ -165,7 +157,7 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: Footer(),
+      bottomNavigationBar: const Footer(),
     );
   }
 }

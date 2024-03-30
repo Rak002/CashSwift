@@ -3,11 +3,9 @@ import 'package:cashswift/modules/ui_components.dart';
 import 'package:cashswift/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cashswift/firebase_options.dart';
 import 'package:cashswift/screens/login_screen.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -21,13 +19,12 @@ class IntroScreen extends StatelessWidget {
       future: Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       ),
-      // future: Future.delayed(Duration(seconds: 5)),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
             return Scaffold(
               extendBody: true,
-              backgroundColor: Color.fromARGB(255, 69, 33, 115),
+              backgroundColor: const Color.fromARGB(255, 69, 33, 115),
               body: Container(
                 width: double.maxFinite,
                 height: double.maxFinite,
@@ -116,21 +113,13 @@ class IntroScreen extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.06,
                         ),
-                        // Container(
-                        //         height: 2.5,
-                        //         width: 250,
-                        //         decoration: BoxDecoration(
-                        //             color: Color.fromARGB(105, 255, 255, 255),
-                        //             borderRadius: BorderRadius.circular(10)))
-                        //     .animate(delay: Duration(milliseconds: 1200))
-                        //     .fade(duration: Duration(milliseconds: 2400)),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
                         Container(
                           height: 50,
                           width: 300,
-                          color: Color.fromARGB(0, 69, 33, 115),
+                          color: const Color.fromARGB(0, 69, 33, 115),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -181,7 +170,7 @@ class IntroScreen extends StatelessWidget {
                         Container(
                           height: 50,
                           width: 300,
-                          color: Color.fromARGB(0, 69, 33, 115),
+                          color: const Color.fromARGB(0, 69, 33, 115),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -232,7 +221,7 @@ class IntroScreen extends StatelessWidget {
                         Container(
                           height: 50,
                           width: 300,
-                          color: Color.fromARGB(0, 69, 33, 115),
+                          color: const Color.fromARGB(0, 69, 33, 115),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -283,20 +272,11 @@ class IntroScreen extends StatelessWidget {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.028,
                         ),
-                        // Container(
-                        //         height: 2.5,
-                        //         width: 250,
-                        //         decoration: BoxDecoration(
-                        //             color: Color.fromARGB(105, 255, 255, 255),
-                        //             borderRadius: BorderRadius.circular(10)))
-                        //     .animate(delay: Duration(milliseconds: 2000))
-                        //     .fade(duration: Duration(milliseconds: 2400)),
                       ],
                     ),
                   ],
                 ),
               ),
-              // Next button
               bottomNavigationBar: Padding(
                 padding: const EdgeInsets.only(
                   left: 40,
@@ -304,7 +284,7 @@ class IntroScreen extends StatelessWidget {
                   right: 40,
                 ),
                 child: OutlinedButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     final currentUser = FirebaseAuth.instance.currentUser;
                     if (currentUser != null) {
                       Object res =
@@ -316,27 +296,18 @@ class IntroScreen extends StatelessWidget {
                       }
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
-                        return HomeScreen(); // go to home screen
+                        return const HomeScreen(); // go to home screen
                       }));
                     } else {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) {
-                        return LoginScreen(); // go to login screen
+                        return const LoginScreen(); // go to login screen
                       }));
                     }
-
-                    // Navigator.pushReplacement(context,
-                    //     MaterialPageRoute(builder: (context) {
-                    //   if (FirebaseAuth.instance.currentUser != null) {
-                    //     return LoginScreen(); // go to home screen
-                    //   } else {
-                    //     return LoginScreen(); // go to login screen
-                    //   }
-                    // }));
                   },
                   style: OutlinedButton.styleFrom(
-                    fixedSize: Size(70, 50),
-                    backgroundColor: Color.fromARGB(102, 204, 185, 255),
+                    fixedSize: const Size(70, 50),
+                    backgroundColor: const Color.fromARGB(102, 204, 185, 255),
                     side: const BorderSide(
                         width: 3.0, color: Color.fromARGB(255, 255, 255, 255)),
                   ),
@@ -371,7 +342,7 @@ class IntroScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  child: Center(
+                  child: const Center(
                       child: CircularProgressIndicator(
                     color: Colors.white,
                   ))),

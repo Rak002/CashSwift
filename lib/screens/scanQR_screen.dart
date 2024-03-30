@@ -22,10 +22,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
   TextEditingController amtTextFieldController = TextEditingController();
   TransactionCategory selectedCategory = TransactionCategory.Groceries;
 
-  // In order to get hot reload to work we need to pause the camera if the platform
-  // is android, or resume the camera if the platform is iOS.
-
-  // Dropdown items for the categories
   List<DropdownMenuItem<TransactionCategory>> buildDropdownMenuItems() {
     List<DropdownMenuItem<TransactionCategory>> items = [];
     for (TransactionCategory category in TransactionCategory.values) {
@@ -39,7 +35,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
     return items;
   }
 
-  // Dropdown widget
   DropdownButton<TransactionCategory> buildDropdownButton() {
     return DropdownButton<TransactionCategory>(
       value: selectedCategory,
@@ -49,20 +44,19 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
           selectedCategory = value!;
         });
       },
-      hint: Text('Select'), // Optional hint text
-      icon: Icon(Icons.arrow_drop_down), // Custom dropdown icon
+      hint: const Text('Select'),
+      icon: const Icon(Icons.arrow_drop_down),
       style: GoogleFonts.notoSans(
         textStyle: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 241, 212, 180),),
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Color.fromARGB(255, 241, 212, 180),
+        ),
       ),
-      // Custom text style
-      dropdownColor: Color.fromARGB(255, 33, 33, 36),
+      dropdownColor: const Color.fromARGB(255, 33, 33, 36),
       underline: Container(
-        // Custom underline
         height: 2,
-        color: Color.fromARGB(255, 241, 212, 180),
+        color: const Color.fromARGB(255, 241, 212, 180),
       ),
     );
   }
@@ -84,13 +78,10 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
   }
 
   Widget _buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
             MediaQuery.of(context).size.height < 400)
         ? 150.0
         : 300.0;
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
     return QRView(
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
@@ -112,15 +103,14 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
       setState(() {
         result = scanData;
         if (result != null) {
-          idTextFieldController.text = (result?.code as String)
-              .split("/")[0]; // Assign scanned data to nullable string
+          idTextFieldController.text = (result?.code as String).split("/")[0];
         }
       });
     });
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    print('${DateTime.now().toIso8601String()}_onPermissionSet $p');
+    // print('${DateTime.now().toIso8601String()}_onPermissionSet $p');
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('no Permission')),
@@ -137,7 +127,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 26, 26, 28),
+      backgroundColor: const Color.fromARGB(255, 26, 26, 28),
       appBar: Header(context),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -145,7 +135,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
           height: 670,
           child: Column(
             children: <Widget>[
-              // Expanded(flex: 4, child: _buildQrView(context)),
               Container(
                 width: double.infinity,
                 height: 320,
@@ -158,67 +147,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.end,
-                    //   children: [
-                    //     Container(
-                    //       margin: const EdgeInsets.all(8),
-                    //       child: ElevatedButton(
-                    //         onPressed: () async {
-                    //           await controller?.pauseCamera();
-                    //         },
-                    //         child: Icon(Icons.pause, size: 20),
-                    //       ),
-                    //     ),
-                    //     Container(
-                    //       margin: const EdgeInsets.all(8),
-                    //       child: ElevatedButton(
-                    //           onPressed: () async {
-                    //             await controller?.resumeCamera();
-                    //           },
-                    //           child: Icon(Icons.play_arrow, size: 20)),
-                    //     ),
-                    //     Container(
-                    //       margin: const EdgeInsets.all(5),
-                    //       child: ElevatedButton(
-                    //           onPressed: () async {
-                    //             await controller?.toggleFlash();
-                    //             setState(() {});
-                    //           },
-                    //           child: FutureBuilder(
-                    //             future: controller?.getFlashStatus(),
-                    //             builder: (context, snapshot) {
-                    //               if (snapshot.data != null) {
-                    //                 if (snapshot.data == true) {
-                    //                   return const Icon(Icons.flash_on);
-                    //                 } else {
-                    //                   return const Icon(Icons.flash_off);
-                    //                 }
-                    //               }
-                    //               return Icon(Icons.flash_on);
-                    //             },
-                    //           )),
-                    //     ),
-                    //   ],
-                    // ),
-                    // if (result != null)
-                    //   Text(
-                    //       'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                    // else
-                    //   const Text('Scan a code'),
-                    // TextField(
-                    //   controller: idTextFieldController,
-                    //   decoration: const InputDecoration(
-                    //     hintText: 'Enter CashSwift ID of Receiver',
-                    //     hintStyle: TextStyle(color: Colors.grey),
-                    //     enabledBorder: OutlineInputBorder(
-                    //       borderSide: BorderSide(color: Colors.grey),
-                    //     ),
-                    //     focusedBorder: OutlineInputBorder(
-                    //       borderSide: BorderSide(color: Colors.grey),
-                    //     ),
-                    //   ),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.only(
                           top: 10, bottom: 10, left: 15, right: 15),
@@ -227,7 +155,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                         enableSuggestions: false,
                         autocorrect: false,
                         keyboardType: TextInputType.emailAddress,
-                        cursorColor: Color.fromARGB(255, 241, 212, 180),
+                        cursorColor: const Color.fromARGB(255, 241, 212, 180),
                         style: GoogleFonts.notoSans(
                           textStyle: const TextStyle(
                               fontSize: 20,
@@ -263,7 +191,7 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                         enableSuggestions: false,
                         autocorrect: false,
                         keyboardType: TextInputType.emailAddress,
-                        cursorColor: Color.fromARGB(255, 241, 212, 180),
+                        cursorColor: const Color.fromARGB(255, 241, 212, 180),
                         style: GoogleFonts.notoSans(
                           textStyle: const TextStyle(
                               fontSize: 20,
@@ -291,19 +219,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                         ),
                       ),
                     ),
-                    // TextField(
-                    //   controller: amtTextFieldController,
-                    //   decoration: const InputDecoration(
-                    //     hintText: 'Enter Amount to Send',
-                    //     hintStyle: TextStyle(color: Colors.grey),
-                    //     enabledBorder: OutlineInputBorder(
-                    //       borderSide: BorderSide(color: Colors.grey),
-                    //     ),
-                    //     focusedBorder: OutlineInputBorder(
-                    //       borderSide: BorderSide(color: Colors.grey),
-                    //     ),
-                    //   ),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
@@ -322,7 +237,6 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                         ],
                       ),
                     ),
-
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: OutlinedButton(
@@ -343,19 +257,20 @@ class _ScanQRScreenState extends State<ScanQRScreen> {
                               } else if (res == "insufficient balance") {
                                 showSnackBar(
                                     context, "Insufficient Balance", "error");
-                              } else if (res == "Cannot transfer money to self") {
-                                showSnackBar(
-                                    context, "Cannot transfer money to self", "error");
+                              } else if (res ==
+                                  "Cannot transfer money to self") {
+                                showSnackBar(context,
+                                    "Cannot transfer money to self", "error");
                               } else {
                                 showSnackBar(
                                     context, "Some Error Occured", "error");
-                                print("res :-------------------- $res");
                               }
                             }
                           }
                         },
                         style: OutlinedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(102, 204, 185, 255),
+                          backgroundColor:
+                              const Color.fromARGB(102, 204, 185, 255),
                           side: const BorderSide(
                               width: 3.0,
                               color: Color.fromARGB(255, 255, 255, 255)),

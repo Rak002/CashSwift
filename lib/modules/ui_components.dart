@@ -4,12 +4,11 @@ import 'package:cashswift/screens/receive_screen.dart';
 import 'package:cashswift/screens/scanQR_screen.dart';
 import 'package:flutter/material.dart';
 import "package:cashswift/screens/user_screen.dart";
-import 'package:google_fonts/google_fonts.dart';
 
 AppBar Header(BuildContext context) {
   return AppBar(
     automaticallyImplyLeading: false,
-    backgroundColor:  Color.fromARGB(255, 46, 15, 99),
+    backgroundColor:  const Color.fromARGB(255, 46, 15, 99),
     toolbarHeight: 70,
     title: Padding(
         padding: const EdgeInsets.only(
@@ -37,7 +36,7 @@ AppBar Header(BuildContext context) {
             child: Container(
                 width: 50,
                 child:
-                    Icon(Icons.notifications_active, color: Colors.white, size: 30))),
+                    const Icon(Icons.notifications_active, color: Colors.white, size: 30))),
       ),
       InkWell(
         onTap: () {
@@ -57,7 +56,7 @@ AppBar Header(BuildContext context) {
             child: Container(
                 width: 50,
                 child:
-                    Icon(Icons.account_circle, color: Colors.white, size: 30))),
+                    const Icon(Icons.account_circle, color: Colors.white, size: 30))),
       ),
     ],
   );
@@ -71,10 +70,9 @@ class Footer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 60,
-        color:  Color.fromARGB(255, 46, 15, 99),
+        color:  const Color.fromARGB(255, 46, 15, 99),
         child: Row(
           children: [
-            // Home Button
             Expanded(
               child: InkWell(
                 onTap: () {
@@ -169,18 +167,17 @@ void showSnackBar(BuildContext context, String text, String type) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       backgroundColor: (type == "error")
-          ? Color.fromARGB(255, 255, 103, 92)
-          : Color.fromARGB(255, 75, 165, 78),
+          ? const Color.fromARGB(255, 255, 103, 92)
+          : const Color.fromARGB(255, 75, 165, 78),
       content: Text(text,
           style: const TextStyle(
               fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white)),
       duration:
-          const Duration(seconds: 3), // Duration for which snackbar is visible
+          const Duration(seconds: 3),
       action: SnackBarAction(
-        label: 'Close', // Label for the action
-        textColor: Color.fromARGB(255, 219, 230, 255),
+        label: 'Close',
+        textColor: const Color.fromARGB(255, 219, 230, 255),
         onPressed: () {
-          // Action when pressed
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
         },
       ),
