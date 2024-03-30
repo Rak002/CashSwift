@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'dart:async';
@@ -24,7 +25,6 @@ class ReceiveScreen extends StatefulWidget {
 }
 
 class _ReceiveScreenState extends State<ReceiveScreen> {
-
   Future<ui.Image> _loadOverlayImage() async {
     final Completer<ui.Image> completer = Completer<ui.Image>();
     final ByteData byteData =
@@ -41,20 +41,22 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(top : 40),
-              child: Container(
-                width: 300,
-                height: 300,
-                alignment: Alignment.center,
-                color: Colors.white,
-                child: CustomPaint(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 40),
+                child: Container(
+                  width: 300,
+                  height: 300,
+                  alignment: Alignment.center,
+                  color: Colors.white,
+                  child: CustomPaint(
                     size: const Size.square(280),
                     painter: QrPainter(
-                      data: "${Provider.of<DataModel>(context, listen: false).cashSwiftID}/${FirebaseAuth.instance.currentUser?.uid}",
+                      data:
+                          "${Provider.of<DataModel>(context, listen: false).cashSwiftID}/${FirebaseAuth.instance.currentUser?.uid}",
                       version: QrVersions.auto,
                       eyeStyle: const QrEyeStyle(
                         eyeShape: QrEyeShape.square,
@@ -70,9 +72,97 @@ class _ReceiveScreenState extends State<ReceiveScreen> {
                       ),
                     ),
                   ),
+                ),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  "Scan to Receive",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top :15, bottom: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 80,
+                      height: 2,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      "   or   ",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    Container(
+                      width: 80,
+                      height: 2,
+                      color: Colors.white,
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                        20.0), // Adjust the value as needed
+                    color: Color.fromARGB(26, 255, 255, 255),
+                  ),
+                  width: 600,
+                  height: 140,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 13.0,
+                                bottom: 10.0,
+                                left: 20.0,
+                                right: 20.0),
+                            child: Text(
+                              "Enter CashSwift ID",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 20),
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Clipboard.setData(ClipboardData(
+                                  text: Provider.of<DataModel>(context,
+                                          listen: false)
+                                      .cashSwiftID,
+                                ));
+                              },
+                              icon: Icon(Icons.copy, color: Colors.white))
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          Provider.of<DataModel>(context, listen: false)
+                              .cashSwiftID,
+                          style: GoogleFonts.notoSans(
+                            textStyle: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 241, 212, 180),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Footer(),

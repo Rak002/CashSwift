@@ -1,3 +1,4 @@
+import 'package:cashswift/screens/balance_page.dart';
 import 'package:cashswift/screens/home_screen.dart';
 import 'package:cashswift/screens/receive_screen.dart';
 import 'package:cashswift/screens/scanQR_screen.dart';
@@ -135,13 +136,16 @@ class Footer extends StatelessWidget {
                     ),
                     child: Container(
                         width: 50,
-                        child: const Icon(Icons.download, color: Colors.white, size: 30))),
+                        child: const Icon(Icons.payment, color: Colors.white, size: 30))),
               ),
             ),
             Expanded(
               child: InkWell(
                 onTap: () {
-                  // navigate to transaction history page
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) {
+                    return const BalancePage();
+                  }));
                 },
                 splashColor: Colors.transparent,
                 child: Padding(
@@ -153,7 +157,7 @@ class Footer extends StatelessWidget {
                     ),
                     child: Container(
                         width: 50,
-                        child: const Icon(Icons.payment, color: Colors.white, size: 30))),
+                        child: const Icon(Icons.account_balance_wallet, color: Colors.white, size: 30))),
               ),
             ),
           ],

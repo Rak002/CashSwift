@@ -56,7 +56,7 @@ class UserScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          Provider.of<DataModel>(context, listen: false).cashSwiftID,
+                          Provider.of<DataModel>(context, listen: false).phoneNumber.toString(),
                           style: GoogleFonts.notoSans(
                             textStyle: const TextStyle(
                               fontSize: 16,

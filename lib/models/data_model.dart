@@ -93,7 +93,9 @@ class DataModel extends ChangeNotifier {
   Future<Object> transferMoney(String senderUID, String receiverUID,
       double amount, TransactionCategory category) async {
     try {
-      print("$senderUID , $receiverUID , $amount , $category");
+      if(senderUID == receiverUID){
+        return "Cannot transfer money to self";
+      }
       final DocumentSnapshot<Map<String, dynamic>> userData =
           await FirebaseFirestore.instance.collection('Users').doc(senderUID).get();
       late double balance ;
