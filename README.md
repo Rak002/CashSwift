@@ -1,16 +1,34 @@
-# cashswift
+# CashSwift
 
-An application that facilitates peer-to-peer money transferring.
+An application that facilitates peer-to-peer money transfers.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+•	Seamless loading of money into the user's account.
 
-A few resources to get you started if this is your first Flutter project:
+•	Efficient peer-to-peer money transfer functionality using app’s UPI IDor QR code scanning.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+•	Accurate updating of account balances after each transaction.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+•	Implementation of categorization feature for transactions.
+
+## Screenshots
+
+![1](https://github.com/Rak002/CashSwift/assets/102357129/0d62b662-2579-424d-a0a3-50d68b1f393a)
+![2](https://github.com/Rak002/CashSwift/assets/102357129/d3a8c0f0-80e2-43c4-bdce-b0db9761d779)
+![3](https://github.com/Rak002/CashSwift/assets/102357129/d54aec45-c4dc-4f00-9f85-39cdb679a419)
+![4](https://github.com/Rak002/CashSwift/assets/102357129/cc5f0d5e-5050-4048-a9cb-4b216d378640)
+
+
+## Technologies
+
+•	Flutter
+
+•	Firebase Firestore
+
+
+
+
+
+
+
